@@ -1,4 +1,6 @@
 import os
+from typing import *
+
 import numpy as np
 import bitarray
 
@@ -14,7 +16,7 @@ class IrisMatcher:
         self.encoder = Thermometer()
         self.mih = MIH(num_tables=num_tables)
 
-    def build_index(self):
+    def build_index(self) -> None:
         vectors = {}
         max_len = 0
         descriptors_list = []
@@ -30,15 +32,14 @@ class IrisMatcher:
                     except Exception as e:
                         print(f'Error ({path}): {e}')
 
-        self.encoder.fit(descriptors_list)
+        # self.encoder.fit(descriptors_list)
 
         for root, _, files in os.walk(self.casia_path):
             for f in files:
                 if f.lower().endswith('.jpg'):
                     path = os.path.join(root, f)
                     try:
-                        des = self.extractor.extract(path)
-                        vec = self.encoder.to_bitarray(des)
+                        vec = self.extractor.extract(path)
                         vectors[path] = vec
                         if len(vec) > max_len:
                             max_len = len(vec)
@@ -56,16 +57,8 @@ class IrisMatcher:
                 vec = vec[:max_len]
             self.mih.insert(path, bitarray.bitarray(vec.tolist()))
 
-    def search(self, query_img: str, max_distance: int | None = None, tolerance_pct: float | None = None):
-        des = self.extractor.extract(query_img)
-        vec = self.encoder.to_bitarray(des)
-
-        if len(vec) < self.mih.max_len:
-            padded = np.zeros(self.mih.max_len, dtype=np.uint8)
-            padded[:len(vec)] = vec
-            vec = padded
-        elif len(vec) > self.mih.max_len:
-            vec = vec[:self.mih.max_len]
+    def search(self, query_img: str, max_distance: Optional[int] = None, tolerance_pct: Optional[float] = None) -> List[Tuple[str, int, str]]:
+        vec = self.extractor.extract(query_img)
 
         if tolerance_pct is not None:
             max_distance = int(self.mih.max_len * tolerance_pct)

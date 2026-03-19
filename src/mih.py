@@ -1,3 +1,5 @@
+from typing import *
+
 import bitarray
 import bitarray.util
 
@@ -5,8 +7,8 @@ import bitarray.util
 class MIH:
     def __init__(self, num_tables: int = 4):
         self.num_tables = num_tables
-        self.hash_tables: list[dict[str, list[str]]] = []
-        self.dataset: dict[str, bitarray.bitarray] = {}
+        self.hash_tables: List[Dict[str, List[str]]] = []
+        self.dataset: Dict[str, bitarray.bitarray] = {}
         self.segment_size = None
         self.max_len = 0
 
@@ -28,23 +30,35 @@ class MIH:
     def hamming_distance(self, a: bitarray.bitarray, b: bitarray.bitarray) -> int:
         return bitarray.util.count_xor(a, b)
 
-    def query(self, vec: bitarray.bitarray, max_distance: int = 3) -> list[tuple[str, int]]:
-        if len(vec) < self.max_len:
-            pad = bitarray.bitarray(self.max_len - len(vec))
-            pad.setall(0)
-            vec = vec + pad
-        elif len(vec) > self.max_len:
-            vec = vec[:self.max_len]
+    def generate_hamming_ball(self, segment: str, radius: int) -> List[str]:
+        from itertools import combinations
 
-        candidates = set()
+        indexes = range(len(segment))
+        hamming_ball = [segment]
+
+        for r in range(1, radius + 1):
+            for positions in combinations(indexes, r):
+                flipped = list(segment)
+                for p in positions:
+                    flipped[p] = '1' if flipped[p] == '0' else '0'
+                hamming_ball.append(''.join(flipped))
+        return hamming_ball
+
+    def query(self, vec: bitarray.bitarray, max_distance: int = 3) -> List[Tuple[str, int, str]]:
+        selected_keys = set()
         for i in range(self.num_tables):
-            seg = vec[i*self.segment_size:(i+1)*self.segment_size].to01()
-            if seg in self.hash_tables[i]:
-                candidates.update(self.hash_tables[i][seg])
+            segment = vec[i*self.segment_size:(i+1)*self.segment_size].to01()
+            candidates = self.generate_hamming_ball(segment, max_distance)
+            for candidate in candidates:
+                if candidate in self.hash_tables[i].keys():
+                    keys = self.hash_tables[i][candidate]
+                    for key in keys:
+                        selected_keys.add(key)
 
         results = []
-        for key in candidates:
-            dist = self.hamming_distance(vec, self.dataset[key])
-            if dist <= max_distance:
-                results.append((key, dist))
+        print(f'Selected keys: {selected_keys}')
+        for key in selected_keys:
+            value = self.dataset[key]
+            distance = self.hamming_distance(vec, value)
+            results.append((key, distance, value.to01()))
         return sorted(results, key=lambda x: x[1])
