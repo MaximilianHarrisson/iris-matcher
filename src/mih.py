@@ -44,19 +44,22 @@ class MIH:
                 hamming_ball.append(''.join(flipped))
         return hamming_ball
 
-    def query(self, vec: bitarray.bitarray, max_distance: int = 3) -> List[Tuple[str, int, str]]:
+    def collect_candidates(self, vec: bitarray.bitarray, max_distance: int) -> Set[str]:
+        segment_radius = max_distance // self.num_tables
         selected_keys = set()
         for i in range(self.num_tables):
-            segment = vec[i*self.segment_size:(i+1)*self.segment_size].to01()
-            candidates = self.generate_hamming_ball(segment, max_distance)
+            segment = vec[i * self.segment_size:(i + 1) * self.segment_size].to01()
+            candidates = self.generate_hamming_ball(segment, segment_radius)
             for candidate in candidates:
-                if candidate in self.hash_tables[i].keys():
-                    keys = self.hash_tables[i][candidate]
-                    for key in keys:
+                if candidate in self.hash_tables[i]:
+                    for key in self.hash_tables[i][candidate]:
                         selected_keys.add(key)
+        return selected_keys
+
+    def query(self, vec: bitarray.bitarray, max_distance: int = 8) -> List[Tuple[str, int, str]]:
+        selected_keys = self.collect_candidates(vec, max_distance)
 
         results = []
-        print(f'Selected keys: {selected_keys}')
         for key in selected_keys:
             value = self.dataset[key]
             distance = self.hamming_distance(vec, value)
