@@ -3,16 +3,16 @@ from typing import *
 
 import numpy as np
 import bitarray
-from .feature_extractor import FeatureExtractor
 from .iris_dataset import IrisDataset
 from .iris_entry import IrisEntry
 from .mih import MIH
+from .vgg16_extractor import Vgg16Extractor
 
 
 class IrisMatcher:
     def __init__(self, dataset: IrisDataset, num_tables: int = 4):
         self.dataset = dataset
-        self.extractor = FeatureExtractor()
+        self.extractor = Vgg16Extractor()
         self.mih = MIH(num_tables=num_tables)
         self.entries: Dict[str, IrisEntry] = {}
         self.indexes_path = os.path.join('results', 'indexes.npz')

@@ -6,6 +6,7 @@ from .iris_entry import IrisEntry
 from .iris_dataset import IrisDataset
 from .iris_matcher import IrisMatcher
 from .mih import MIH
+from .vgg16_extractor import Vgg16Extractor
 
 __all__ = [
     'BiometryExtractor',
@@ -15,4 +16,5 @@ __all__ = [
     'IrisEntry', 'IrisDataset',
     'IrisMatcher',
     'MIH',
+    'Vgg16Extractor',
 ]
