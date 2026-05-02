@@ -50,13 +50,6 @@ class Vgg16Extractor:
 
         return embedding
 
-    def _binarize_embedding(self, embedding: np.ndarray) -> np.ndarray:
-        if embedding.ndim != 1:
-            embedding = embedding.reshape(-1)
-
-        threshold = np.median(embedding)
-        return (embedding >= threshold).astype(np.uint8)
-
     def extract(self, img_path: str) -> np.ndarray:
         try:
             img = self._load_image(img_path)
@@ -67,5 +60,4 @@ class Vgg16Extractor:
         except Exception as exc:
             raise RuntimeError(f'Failed to extract VGG16 features from: {img_path}') from exc
 
-        result = self._binarize_embedding(embedding)
-        return result
+        return embedding

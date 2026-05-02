@@ -5,6 +5,7 @@ from .feature_extractor import FeatureExtractor
 from .iris_entry import IrisEntry
 from .iris_dataset import IrisDataset
 from .iris_matcher import IrisMatcher
+from .median_binarizer import MedianBinarizer
 from .mih import MIH
 from .vgg16_extractor import Vgg16Extractor
 
@@ -15,6 +16,7 @@ __all__ = [
     'FeatureExtractor',
     'IrisEntry', 'IrisDataset',
     'IrisMatcher',
+    'MedianBinarizer',
     'MIH',
     'Vgg16Extractor',
 ]
