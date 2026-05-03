@@ -7,6 +7,7 @@ from .iris_dataset import IrisDataset
 from .iris_matcher import IrisMatcher
 from .median_binarizer import MedianBinarizer
 from .mih import MIH
+from .thermometer_binarizer import ThermometerBinarizer
 from .vgg16_extractor import Vgg16Extractor
 
 __all__ = [
@@ -18,5 +19,6 @@ __all__ = [
     'IrisMatcher',
     'MedianBinarizer',
     'MIH',
+    'ThermometerBinarizer',
     'Vgg16Extractor',
 ]
