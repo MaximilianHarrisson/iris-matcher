@@ -4,6 +4,7 @@ from typing import *
 import numpy as np
 import bitarray
 
+from .thermometer_binarizer import ThermometerBinarizer
 from .iris_dataset import IrisDataset
 from .iris_entry import IrisEntry
 from .median_binarizer import MedianBinarizer
@@ -127,3 +128,7 @@ class IrisMatcher:
             max_distance = int(self.mih.max_len * tolerance_pct)
 
         return self.mih.query(bitarray.bitarray(vec.tolist()), max_distance=max_distance)
+
+    def candidates(self, query_img: str, max_distance: int) -> Set[str]:
+        vec = self._binarize(self.extractor.extract(query_img))
+        return self.mih.collect_candidates(bitarray.bitarray(vec.tolist()), max_distance)
