@@ -11,7 +11,9 @@ from .iris_matcher import IrisMatcher
 from .median_binarizer import MedianBinarizer
 from .mih import MIH
 from .mobilenetv2_extractor import MobileNetV2Extractor
+from .orb_extractor import OrbExtractor
 from .resnet50_extractor import Resnet50Extractor
+from .sift_extractor import SiftExtractor
 from .thermometer_binarizer import ThermometerBinarizer
 from .vgg16_extractor import Vgg16Extractor
 
@@ -28,7 +30,9 @@ __all__ = [
     'MedianBinarizer',
     'MIH',
     'MobileNetV2Extractor',
+    'OrbExtractor',
     'Resnet50Extractor',
+    'SiftExtractor',
     'ThermometerBinarizer',
     'Vgg16Extractor',
 ]
