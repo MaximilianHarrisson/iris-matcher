@@ -3,6 +3,7 @@ from .convnext_extractor import ConvNextExtractor
 from .evaluator import Evaluator
 from .faiss_mih import FaissMIH
 from .feature_extractor import FeatureExtractor
+from .identity_binarizer import IdentityBinarizer
 from .inceptionv3_extractor import InceptionV3Extractor
 from .iris_entry import IrisEntry
 from .iris_dataset import IrisDataset
@@ -20,6 +21,7 @@ __all__ = [
     'Evaluator',
     'FaissMIH',
     'FeatureExtractor',
+    'IdentityBinarizer',
     'InceptionV3Extractor',
     'IrisEntry', 'IrisDataset',
     'IrisMatcher',
