@@ -1,0 +1,6 @@
+numpy==1.24.4
+torch==2.4.1
+torchvision==0.19.1
+opencv-python==4.13.0.92
+faiss-cpu==1.8.0.post1
+bitarray==3.8.0
