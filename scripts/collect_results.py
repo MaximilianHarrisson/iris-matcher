@@ -59,15 +59,15 @@ SCENARIOS = [('person', 'Scenario 1 (person)'), ('identity', 'Scenario 2 (person
 
 def make_extractor_and_binarizer(name):
     """Return (extractor, binarizer): median for CNNs/SIFT, identity for ORB's native bits."""
-    from src.median_binarizer import MedianBinarizer
-    from src.identity_binarizer import IdentityBinarizer
-    from src.sift_extractor import SiftExtractor
-    from src.orb_extractor import OrbExtractor
-    from src.vgg16_extractor import Vgg16Extractor
-    from src.resnet50_extractor import Resnet50Extractor
-    from src.convnext_extractor import ConvNextExtractor
-    from src.mobilenetv2_extractor import MobileNetV2Extractor
-    from src.inceptionv3_extractor import InceptionV3Extractor
+    from src.binarizers.median_binarizer import MedianBinarizer
+    from src.binarizers.identity_binarizer import IdentityBinarizer
+    from src.extractors.sift_extractor import SiftExtractor
+    from src.extractors.orb_extractor import OrbExtractor
+    from src.extractors.vgg16_extractor import Vgg16Extractor
+    from src.extractors.resnet50_extractor import Resnet50Extractor
+    from src.extractors.convnext_extractor import ConvNextExtractor
+    from src.extractors.mobilenetv2_extractor import MobileNetV2Extractor
+    from src.extractors.inceptionv3_extractor import InceptionV3Extractor
 
     cnns = {
         'vgg16': Vgg16Extractor,

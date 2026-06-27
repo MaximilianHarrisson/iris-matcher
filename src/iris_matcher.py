@@ -4,12 +4,12 @@ from typing import *
 import numpy as np
 import bitarray
 
-from .thermometer_binarizer import ThermometerBinarizer
+from .binarizers.thermometer_binarizer import ThermometerBinarizer
 from .iris_dataset import IrisDataset
 from .iris_entry import IrisEntry
-from .median_binarizer import MedianBinarizer
-from .mih import MIH
-from .vgg16_extractor import Vgg16Extractor
+from .binarizers.median_binarizer import MedianBinarizer
+from .indexing.mih import MIH
+from .extractors.vgg16_extractor import Vgg16Extractor
 
 
 class IrisMatcher:

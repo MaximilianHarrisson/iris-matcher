@@ -38,8 +38,8 @@ def run_cell(levels, num_tables, log_path, result_queue):
     from src.iris_dataset import IrisDataset
     from src.iris_matcher import IrisMatcher
     from src.evaluator import Evaluator
-    from src.vgg16_extractor import Vgg16Extractor
-    from src.thermometer_binarizer import ThermometerBinarizer
+    from src.extractors.vgg16_extractor import Vgg16Extractor
+    from src.binarizers.thermometer_binarizer import ThermometerBinarizer
 
     log_file = open(log_path, 'w', buffering=1)
     old_out, old_err = sys.stdout, sys.stderr

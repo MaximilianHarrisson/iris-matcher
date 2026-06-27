@@ -1,21 +1,20 @@
-from .biometry_extractor import BiometryExtractor
-from .convnext_extractor import ConvNextExtractor
 from .evaluator import Evaluator
-from .faiss_mih import FaissMIH
-from .feature_extractor import FeatureExtractor
-from .identity_binarizer import IdentityBinarizer
-from .inceptionv3_extractor import InceptionV3Extractor
 from .iris_entry import IrisEntry
 from .iris_dataset import IrisDataset
 from .iris_matcher import IrisMatcher
-from .median_binarizer import MedianBinarizer
-from .mih import MIH
-from .mobilenetv2_extractor import MobileNetV2Extractor
-from .orb_extractor import OrbExtractor
-from .resnet50_extractor import Resnet50Extractor
-from .sift_extractor import SiftExtractor
-from .thermometer_binarizer import ThermometerBinarizer
-from .vgg16_extractor import Vgg16Extractor
+from .binarizers import IdentityBinarizer, MedianBinarizer, ThermometerBinarizer
+from .extractors import (
+    BiometryExtractor,
+    ConvNextExtractor,
+    FeatureExtractor,
+    InceptionV3Extractor,
+    MobileNetV2Extractor,
+    OrbExtractor,
+    Resnet50Extractor,
+    SiftExtractor,
+    Vgg16Extractor,
+)
+from .indexing import FaissMIH, MIH
 
 __all__ = [
     'BiometryExtractor',
